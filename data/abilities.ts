@@ -10887,7 +10887,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	grandwelcome: {
 		onStart(pokemon) {
 			if (pokemon.swordBoost) return;
-			if (pokemon.side.pokemonLeft === 1) {
+			if (pokemon.side.pokemonLeft > 5) {
 				this.boost({atk: 1}, pokemon);
 			}
 		},
@@ -10899,12 +10899,10 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 					if (stat !== 'accuracy' && stat !== 'evasion' && source.boosts[stat] < 6) {
 						stats.push(stat);
 				}
-				if (stats.length) {
-					const randomStat = this.sample(stats);
-					const boost: SparseBoostsTable = {};
-					boost[randomStat] = 1;
-					this.boost(boost, source);
-				}
+				const randomStat = this.sample(stats);
+				const boost: SparseBoostsTable = {};
+				boost[randomStat] = 1;
+				this.boost(boost, source);
 			}
 		}
 	},
